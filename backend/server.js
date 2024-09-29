@@ -24,3 +24,25 @@ app.post('/signup', (req, res) => {
 app.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
 });
+
+// Dummy user for demonstration (in real scenarios, use a database)
+const users = [
+    { email: 'test@example.com', password: 'password123' } // Replace this with actual users from your database
+];
+
+// Route to handle the login form submission
+app.post('/login', (req, res) => {
+    const { email, password } = req.body;
+
+    // Find the user in the database
+    const user = users.find(u => u.email === email && u.password === password);
+
+    // Validate login credentials
+    if (!user) {
+        return res.status(400).send('Invalid email or password');
+    }
+
+    // Successful login (You could set a session or return a JWT token here)
+    res.status(200).send('Login successful! Redirecting...');
+});
+
